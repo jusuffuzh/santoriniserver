@@ -22,8 +22,11 @@ public class UserController {
         return service.getUsers();
     }
 
-    @PostMapping("/users")
-    User createUser(@RequestBody User newUser) {
-        return this.service.createUser(newUser);
+    @PostMapping("/register")
+    User createUser(@RequestBody User newUser) { return this.service.createUser(newUser); }
+
+    @GetMapping("/register")
+    Iterable<User> allRegister() {
+        return service.getUsers();
     }
 }

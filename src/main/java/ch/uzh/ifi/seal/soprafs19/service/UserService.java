@@ -33,9 +33,19 @@ public class UserService {
     public User createUser(User newUser) {
         newUser.setToken(UUID.randomUUID().toString());
         newUser.setStatus(UserStatus.ONLINE);
-        newUser.setCreationDay(LocalDate.now().toString();
+        newUser.setCreationDay(LocalDate.now().toString());
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
+    }
+
+    public User registerCheck(User newUser2) {
+        return userRepository.findByUsername(newUser2.getUsername());
+    }
+
+    public User getUserInfo(long id) {
+        User targetUser = this.userRepository.findById(id);
+        log.info("found user for id " + id);
+        return userRepository.findById(id);
     }
 }

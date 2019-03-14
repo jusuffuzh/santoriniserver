@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
-
 import java.util.UUID;
 
 @Service
@@ -33,19 +32,30 @@ public class UserService {
     public User createUser(User newUser) {
         newUser.setToken(UUID.randomUUID().toString());
         newUser.setStatus(UserStatus.ONLINE);
-        newUser.setCreationDay(LocalDate.now().toString());
+        newUser.setRegistrationDate(LocalDate.now());
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
 
-    public User registerCheck(User newUser2) {
-        return userRepository.findByUsername(newUser2.getUsername());
-    }
-
     public User getUserInfo(long id) {
-        User targetUser = this.userRepository.findById(id);
-        log.info("found user for id " + id);
         return userRepository.findById(id);
     }
-}
+
+    public User edit(long id, User changedUser) {
+        User Y = userRepository.findById(id);
+        Y.setBirthday(changedUser.getBirthday());
+        Y.setUsername(changedUser.getUsername());
+        return Y;
+    }
+
+    public User login(User loginUser) {
+        User X = userRepository.findByUsername(loginUser.getUsername());
+        if (X.getPassword().equals(loginUser.getPassword()) && X.getUsername().equals(loginUser.getUsername())) {
+            X.setStatus(UserStatus.ONLINE);
+            return X;
+        } else {
+            return null;
+        }
+
+    }}

@@ -20,16 +20,16 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    User createUser(@RequestBody User newUser) { return this.service.createUser(newUser); }
-
-    @PostMapping("/login")
-    User isRegister(@RequestBody User newUser2) {
-        return service.registerCheck(newUser2);
-    }
+    User createUser(@RequestBody User newUser) { return service.createUser(newUser); }
 
     @GetMapping("/user/{id}")
     User getInfo(@PathVariable long id) {return service.getUserInfo(id);}
 
+    @PutMapping("/edit/{id}")
+    User changeUser(@PathVariable long id, @RequestBody User changeUser) { return service.edit(id, changeUser); }
 
+    @PostMapping("/login")
+    User login(@RequestBody User loginUser) { return service.login(loginUser);
+    }
 
 }

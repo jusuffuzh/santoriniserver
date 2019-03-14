@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDate;
 
 @Entity
 public class User implements Serializable {
@@ -44,7 +45,7 @@ public class User implements Serializable {
 	private String birthday;
 
 	@Column(nullable = false)
-	private String creationday;
+	private LocalDate registrationDate;
 
 	public Long getId() {	return id;	}
 
@@ -66,9 +67,13 @@ public class User implements Serializable {
 
 	public void setEmail(String email) { this.email = email;	}
 
-	public String getCreationDay() { return creationday; }
+	public LocalDate getRegistrationDate() {
+		return registrationDate;
+	}
 
-	public void setCreationDay(String creation) {	this.creationday = creation;	}
+	public void setRegistrationDate(LocalDate registrationDate) {
+		this.registrationDate = registrationDate;
+	}
 
 	public String getUsername() {
 		return username;
